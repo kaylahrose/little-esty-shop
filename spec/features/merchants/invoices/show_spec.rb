@@ -83,7 +83,7 @@ RSpec.describe 'Merchant invoice show page' do
     it "Has an invoice item as a select field" do
 
       visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-
+      save_and_open_page
       expect(page).to have_select_field("item status")
     end
     it "shows the invoice items current status selecrs"

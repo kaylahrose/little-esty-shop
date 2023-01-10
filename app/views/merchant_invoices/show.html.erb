@@ -5,8 +5,11 @@
 
 <h5>Total Revenue: <%= Merchant.total_revenue(@invoice.id) %><h5>
 
-<%= form_with merchant_invoice_path(@invoice.id) , method: method, local: true do |f| %>
-  <%= f.collection_select :item_status %>
+<%= select_tag(:status, options_for_select([['In Progress', 1], ['Complete', 2]]))%>
 
-  <%= f.submit %>
-<% end %>
+
+<%# <% <%= form_with merchant_invoice_path(@invoice.id) , method: method, local: true do |f| %> %>
+  <%# <%= f.collection_select :item_status %> %>
+
+  <%# <%= f.submit %> %>
+<%# <% end %> %> %>
