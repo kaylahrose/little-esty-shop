@@ -200,4 +200,21 @@ RSpec.describe 'admin merchants index' do
       expect(page).to have_link('New Merchant', href: new_admin_merchant_path)
     end
   end
+
+  describe 'User Story 31' do
+    it 'shows the top days for the top merchants' do
+      merchant = FactoryBot.create(:merchant)
+      item = FactoryBot.create(:item, merchant_id: merchant.id)
+      invoice_1 = FactoryBot.create(:invoice_with_transaction, transaction_result: 1)
+      invoice_2 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-1.day, transaction_result: 1)
+      invoice_3 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-2.days, transaction_result: 1)
+      FactoryBot.create_list(:invoice_item, 2, quantity: 10, unit_price: 10, invoice_id: invoice_1.id, item_id: item.id)
+      FactoryBot.create_list(:invoice_item, 2, quantity: 10, unit_price: 10, invoice_id: invoice_2.id, item_id: item.id)
+      FactoryBot.create_list(:invoice_item, 2, quantity: 5, unit_price: 10, invoice_id: invoice_3.id, item_id: item.id)
+
+      visit admin_merchants_path
+
+      expect(page).to have_content(merchant.top_day)
+    end
+  end
 end

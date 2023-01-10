@@ -43,9 +43,15 @@ class Merchant < ApplicationRecord
   def self.top5_merchants
     joins(invoices: :transactions)
     .group(:id)
-    .where('transactions.result = 1 AND invoices.status = 1')
+    .where('transactions.result = 1')
     .select('merchants.*, sum(invoice_items.quantity * invoice_items.unit_price) as total_revenue')
     .order(total_revenue: :desc)
     .limit(5)
+  end
+
+  def top_day
+    invoices.max_by do |invoice|
+      invoice.total_revenue
+    end.updated_at.to_date
   end
 end

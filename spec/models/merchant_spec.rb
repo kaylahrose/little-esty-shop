@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Merchant do
   before :each do
+    FactoryBot.reload
+
     @merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
     @merchant2 = Merchant.create!(name: 'Jays Foot Made Jewlery')
 
@@ -161,6 +163,21 @@ RSpec.describe Merchant do
   end
 
     describe 'instance methods' do
+      describe '#top_day' do
+        it 'returns the top selling day for a merchant' do
+          merchant = FactoryBot.create(:merchant)
+          item = FactoryBot.create(:item, merchant_id: merchant.id)
+          invoice_1 = FactoryBot.create(:invoice_with_transaction, transaction_result: 1)
+          invoice_2 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-1.day, transaction_result: 1)
+          invoice_3 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-2.days, transaction_result: 1)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 10, unit_price: 10, invoice_id: invoice_1.id, item_id: item.id)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 10, unit_price: 10, invoice_id: invoice_2.id, item_id: item.id)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 5, unit_price: 10, invoice_id: invoice_3.id, item_id: item.id)
+
+          expect(merchant.top_day).to eq(Date.current)
+        end
+      end
+
       describe '#pending_invoices' do
         it 'returns invoices with status pending for a merchant' do
           merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
