@@ -143,5 +143,31 @@ RSpec.describe 'merchant items index page' do
         end
       end
     end
+    #     Merchant Items Index: Top Item's Best Day
+    # As a merchant
+    # When I visit my items index page
+    # Then next to each of the 5 most popular items I see the date with the most sales for each item.
+    # And I see a label “Top selling date for was "
+
+    # NOTE: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
+    #   end
+    it 'lists date with most sales' do
+      mariah = Merchant.create!(name: 'Mariah Ahmed')
+      items = FactoryBot.create_list(:item, 10, merchant_id: mariah.id)
+      items.each_with_index do |item, index|
+        FactoryBot.create_list(:invoice_item, 2, item_id: item.id, quantity: 1, unit_price: (index * 10))
+      end
+      Invoice.all.each_with_index do |invoice, index|
+        FactoryBot.create(:transaction, invoice_id: invoice.id, result: 1, created_at: Time.now - index.days)
+      end
+
+      visit merchant_item_index_path(mariah)
+
+      mariah.top_5_items.each do |item|
+        within('#top-5-items') do
+          expect(page).to have_content("Top selling date for #{item} was #{item.top_sales_date(mariah)}")
+        end
+      end
+    end
   end
 end
