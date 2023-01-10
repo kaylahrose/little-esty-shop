@@ -79,18 +79,23 @@ RSpec.describe 'Merchant invoice show page' do
     # And next to the select field I see a button to "Update Item Status"
     # When I click this button
     # I am taken back to the merchant invoice show page
-    # And I see that my Item's status has now been updated
-    it "Has an invoice item as a select field" do
+    it "Has a select field for item status" do
 
       visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-      save_and_open_page
-      expect(page).to have_select_field("item status")
+      expect(page).to have_content("pending")
     end
-    it "shows the invoice items current status selecrs"
-  it "when selected i can select a new item"
-  it "next to the field i see a button to update item status"
-  it "this button takes me back to the merchant invoice show page where my item has been updated"
+    it "clicking update refreshes the page and updates the item status" do 
+      visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
 
+      expect(page).to have_content("pending")
+      select "complete"
+      expect(page).to have_content("complete")
+
+      click_on "Update Item Status"
+      save_and_open_page
+
+      expect(page).to have_content("complete")
+    end
   end
 
 describe "story 16" do 
@@ -106,7 +111,6 @@ describe "story 16" do
     ii5 = InvoiceItem.create!(quantity: 5, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
     ii6 = InvoiceItem.create!(quantity: 10, unit_price: @item2.unit_price, item_id: @item2.id, invoice_id: @invoice1.id)
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-    save_and_open_page
     expect(page).to have_content(@item1.name)
   end
   it 'shows items name, quantity of item ordered, price item sold for, invoice item status' do
