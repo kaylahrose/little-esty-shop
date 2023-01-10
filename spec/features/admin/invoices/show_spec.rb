@@ -76,4 +76,23 @@ RSpec.describe "admin invoice #show" do
       expect(page).to have_content("$#{@invoice1.total_revenue/100}")
     end
   end
+
+  describe "User story 36" do
+#     As an admin
+# When I visit an admin invoice show page
+# I see the invoice status is a select field
+# And I see that the invoice's current status is selected
+# When I click this select field,
+# Then I can select a new status for the Invoice,
+# And next to the select field I see a button to "Update Invoice Status"
+# When I click this button
+# I am taken back to the admin invoice show page
+# And I see that my Invoice's status has now been updated
+    it 'updates invoice status' do
+      visit "admin/invoices/#{@invoice1.id}" 
+      select 'completed', from: 'invoice_status'
+      click_button "Update Invoice Status"
+      expect(@invoice1.status).to eq(2)
+    end
+  end
 end

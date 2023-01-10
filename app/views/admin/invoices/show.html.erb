@@ -1,5 +1,8 @@
 <div class="title-2">Invoice #<%= @invoice.id %></div>
-<p>Status: <%= @invoice.status %></p>
+<p>Status: <%= form_with model: @invoice do |form| %>
+  <%= form.select :status, ["cancelled", "in progress", "completed"], selected: @invoice.status %>
+  <%= form.submit "Update Invoice Status" %>
+<% end %></p>
 <p>Created on: <%= @invoice.created %></p>
 <p>Total Revenue: $<%= @invoice.total_revenue.to_f/100 %></p>
 <h3>Customer:</h3>
