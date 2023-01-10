@@ -16,7 +16,7 @@
 
 .flex-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   padding-left: 30px;
   padding-right: 30px;
@@ -44,4 +44,14 @@
 
 .inline-button {
   display: inline;
+}
+
+table, th {
+  border: 1px solid;
+}
+
+td {
+  border: 1px solid;
+  font-weight: normal;
+  text-align: center;
 }

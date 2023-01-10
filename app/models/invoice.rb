@@ -15,13 +15,19 @@ class Invoice < ApplicationRecord
     created_at.strftime("%A, %B %-d, %Y")
   end
 
-  def self.total_revenue(id)
-    # binding.pry
-    joins(:transactions, :invoice_items)
-    .where("invoices.id = #{id} AND transactions.result = 1")
-    .group(:id)
-    .select('sum(invoice_items.quantity * invoice_items.unit_price) AS total_revenue')
-    
-    # .sum('invoice_items.quantity * invoice_items.unit_price')
+  def successful?
+    transactions.pluck(:result).include?("success")
   end
+
+  def total_revenue
+    return 0 if !self.successful?
+    invoice_items
+    .sum("quantity * unit_price")
+  end
+
+  def self.merchant_ii(merchant_id, invoice_id) 
+    InvoiceItem.joins(:item)
+    .where("items.merchant_id = #{merchant_id} AND invoice_items.invoice_id = #{invoice_id}")
+  end
+
 end

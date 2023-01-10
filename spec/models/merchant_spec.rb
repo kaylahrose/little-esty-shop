@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Merchant do
   before :each do
+    FactoryBot.reload
+
     @merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
     @merchant2 = Merchant.create!(name: 'Jays Foot Made Jewlery')
 
@@ -168,15 +170,32 @@ RSpec.describe Merchant do
     end
   end
 
-  describe 'instance methods' do
-    describe '#pending_invoices' do
-      it 'returns invoices with status pending for a merchant' do
-        merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
-        item1 = Item.create!(name: 'Chips', description: 'Ring', unit_price: 20, merchant_id: merchant1.id)
-        customer = Customer.create!(first_name: 'Kyle', last_name: 'Ledin')
-        invoice1 = Invoice.create!(status: 1, customer_id: customer.id)
-        ii1 = InvoiceItem.create!(quantity: 5, unit_price: item1.unit_price, item_id: item1.id,
-                                  invoice_id: invoice1.id)
+    describe 'instance methods' do
+      describe '#top_day' do
+        it 'returns the top selling day for a merchant' do
+          merchant = FactoryBot.create(:merchant)
+          item = FactoryBot.create(:item, merchant_id: merchant.id)
+          invoice_1 = FactoryBot.create(:invoice_with_transaction, transaction_result: 1)
+          invoice_2 = FactoryBot.create(:invoice_with_transaction, transaction_result: 1)
+          invoice_3 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-1.day, transaction_result: 1)
+          invoice_4 = FactoryBot.create(:invoice_with_transaction, updated_at: Time.now-2.days, transaction_result: 1)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 5, unit_price: 10, invoice_id: invoice_1.id, item_id: item.id)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 5, unit_price: 10, invoice_id: invoice_2.id, item_id: item.id)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 10, unit_price: 10, invoice_id: invoice_3.id, item_id: item.id)
+          FactoryBot.create_list(:invoice_item, 2, quantity: 5, unit_price: 10, invoice_id: invoice_4.id, item_id: item.id)
+
+          expect(merchant.top_day).to eq(Date.current)
+        end
+      end
+
+      describe '#pending_invoices' do
+        it 'returns invoices with status pending for a merchant' do
+          merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
+          item1 = Item.create!(name: 'Chips', description: 'Ring', unit_price: 20, merchant_id: merchant1.id)
+          customer = Customer.create!(first_name: 'Kyle', last_name: 'Ledin')
+          invoice1 = Invoice.create!(status: 1, customer_id: customer.id)
+          ii1 = InvoiceItem.create!(quantity: 5, unit_price: item1.unit_price, item_id: item1.id,
+                                    invoice_id: invoice1.id)
 
         expect(merchant1.pending_invoices).to eq([invoice1])
 
