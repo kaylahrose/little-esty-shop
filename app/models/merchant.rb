@@ -64,7 +64,7 @@ class Merchant < ApplicationRecord
     .where('transactions.result = 1')
     .select("
         sum(invoice_items.quantity*invoice_items.unit_price) AS revenue, 
-        DATE_TRUNC('day', invoices.updated_at) AS day
+        DATE_TRUNC('day', invoices.created_at) AS day
     ")
     .group(:day)
     .order(revenue: :desc, day: :desc)
