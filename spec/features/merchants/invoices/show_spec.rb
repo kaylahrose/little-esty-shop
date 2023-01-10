@@ -106,7 +106,7 @@ describe "story 16" do
 
   it 'shows items name, quantity of item ordered, price item sold for, invoice item status' do
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-    save_and_open_page
+    
     expect(page).to have_content(@ii1.quantity)
     expect(page).to have_content(@ii1.unit_price)
     expect(page).to have_content(@ii1.status)

@@ -9,10 +9,8 @@ class MerchantInvoicesController < ApplicationController
   end
 
    def update
-    binding.pry
     invoice_item = InvoiceItem.find(params[:ii_id])
     invoice_item.update(status: params[:status].to_i)
-    binding.pry
     redirect_to "/merchant/#{params[:merchant_id]}/invoices/#{params[:id]}"
   end
 end
