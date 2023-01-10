@@ -50,8 +50,17 @@ class Merchant < ApplicationRecord
   end
 
   def top_day
-    invoices.max_by do |invoice|
-      invoice.total_revenue
-    end.updated_at.to_date
+    invoices
+    .joins(:transactions)
+    .where('transactions.result = 1')
+    .select("
+        sum(invoice_items.quantity*invoice_items.unit_price) AS revenue, 
+        DATE_TRUNC('day', invoices.updated_at) AS day
+    ")
+    .group(:day)
+    .order(revenue: :desc, day: :desc)
+    .first
+    .day
+    .to_date
   end
 end
