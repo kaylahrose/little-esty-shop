@@ -6,14 +6,18 @@ class Item < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def top_sales_date
-    require 'pry'; binding.pry
+    # require 'pry'; binding.pry
     invoices
       .joins(:transactions)
-      .where("transaction.result = ?", 1)
-      .select('invoices.created_at, sum(invoice_items.quantity) as invoice_item_count')
-      .group(:id)
-      .order('invoice_item_count desc')
+      .where("transactions.result = ?", 1)
+      .select("
+        sum(invoice_items.quantity*invoice_items.unit_price) as revenue,
+        DATE_TRUNC('day', invoices.created_at) as day
+        ")
+      .group(:day)
+      .order(revenue: :desc, day: :desc)
       .first
-      .created_at
+      .day
+      .to_date
   end
 end

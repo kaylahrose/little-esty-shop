@@ -27,10 +27,10 @@ RSpec.describe Item do
 
         Invoice.all.each do |invoice|
           FactoryBot.create(:transaction, invoice_id: invoice.id, result: 1)
-          FactoryBot.create(:invoice_item, invoice_id: invoice.id, item_id: item.id, quantity: 1)
+          FactoryBot.create(:invoice_item, invoice_id: invoice.id, item_id: item.id, quantity: 1, unit_price: 1)
         end
 
-        expect(item.top_sales_date).to eq(Time.now - 9.days)
+        expect(item.top_sales_date).to eq((Time.now - 9.days).to_date)
       end
     end
   end
