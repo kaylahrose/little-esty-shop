@@ -32,11 +32,8 @@ RSpec.describe "admin invoice #show" do
 
     @ii4 = InvoiceItem.create!(quantity: 5, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice4.id)
   end
+  
   describe "story 35" do
-    # As an admin
-    # When I visit an admin invoice show page
-    # Then I see the total revenue that will be generated from this invoice
-    
     it "display the total revenue generated from the invoice" do
       ii5 = InvoiceItem.create!(quantity: 10, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
       visit "admin/invoices/#{@invoice1.id}"
