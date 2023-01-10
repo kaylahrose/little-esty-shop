@@ -35,9 +35,21 @@ RSpec.describe Invoice do
         expect(invoice.created).to eq("Saturday, November 23, 1963")
       end
     end
+
+    describe '.successful?' do
+      it 'figures out if invoice has had at least 1 successful transaction' do
+        invoice = FactoryBot.create(:invoice_with_transaction, transaction_result: 0)
+
+        expect(invoice.successful?).to be false
+
+        invoice.transactions << FactoryBot.create(:transaction, result: 1)
+
+        expect(invoice.successful?).to be true
+      end
+    end
   end
 
-  describe '#total_revenue' do 
+  describe '.total_revenue' do 
     it 'totals the revenue for all items on the invoice' do
       @merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
       @item1 = Item.create!(name: 'Chips', description: 'Ring', unit_price: 20, merchant_id: @merchant1.id)
@@ -49,9 +61,7 @@ RSpec.describe Invoice do
       @ii1 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id, invoice_id: @invoice1.id)
       @ii5 = InvoiceItem.create!(quantity: 10, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
 
-    
-
-      expect(Invoice.total_revenue(@invoice1.id).first.total_revenue).to eq(400)
+      expect(@invoice1.total_revenue).to eq(400)
     end
   end
 end
