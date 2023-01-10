@@ -21,6 +21,7 @@
     <% if controller_path.starts_with?("admin") %>
       <%= render partial: "partials/admin_header" %>
     <% end %>
+    <hr><br>
     <%= yield %>
   </body>
 </html>

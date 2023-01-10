@@ -3,5 +3,5 @@
 <h5> Status: <%= @invoice.status %></h5>
 <h5> Created on: <%= @invoice.created_at %></h5>
 <h5> Total revenue:</h5>
-<p><%= Invoice.total_revenue(@invoice.id).first.total_revenue %></p>
+<p><%= @invoice.total_revenue %></p>
 <h5> Customer <%= @invoice.customer.first_name %><%= @invoice.customer.last_name %></h5>
