@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :merchant, only: [:show] do
     resources :item, except: [:destroy], controller: "merchant_items"
-    resources :invoices, only: [:index, :show], controller: "merchant_invoices"
+    resources :invoices, only: [:index, :show, :update], controller: "merchant_invoices"
   end
 
   namespace :admin do

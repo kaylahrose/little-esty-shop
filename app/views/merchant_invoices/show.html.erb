@@ -11,6 +11,9 @@
   <p>Item Name: <%= invoice_item.item.name%></p>
   <p>Quantity: <%= invoice_item.quantity%></p>
   <p>Unit Price: <%= invoice_item.unit_price%></p>
-  <p>Status: <%= invoice_item.status%></p>
+  <%= form_with url: "/merchant/#{@merchant.id}/invoices/#{@invoice.id}?item_id=#{invoice_item.item.id}", method: :patch, local: true do |f| %>
+    <%= f.select :status, [["pending", 0 ], ["complete", 1]], selected: invoice_item.item.status %>
+    <%= f.submit "Update Item Status" %>
+  <% end%>
 <% end %>
 
