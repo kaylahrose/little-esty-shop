@@ -31,11 +31,12 @@ RSpec.describe 'Merchant invoice show page' do
     @transaction3 = @invoice3.transactions.create!(credit_card_number: '543219876', credit_card_expiration_date: '03/07')
     @transaction4 = @invoice4.transactions.create!(credit_card_number: '121987654', credit_card_expiration_date: '02/07')
 
-    @ii1 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id, invoice_id: @invoice1.id)
+    @ii1 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id, invoice_id: @invoice1.id, status: 1)
     @ii2 = InvoiceItem.create!(quantity: 10, unit_price: @item2.unit_price, item_id: @item2.id, invoice_id: @invoice2.id)
     @ii3 = InvoiceItem.create!(quantity: 5, unit_price: @item3.unit_price, item_id: @item3.id, invoice_id: @invoice3.id)
     @ii4 = InvoiceItem.create!(quantity: 5, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice4.id)
   end
+
   it 'lists invoices attributes' do
     visit merchant_invoice_path(@merchant1, @invoice1)
     
@@ -45,6 +46,7 @@ RSpec.describe 'Merchant invoice show page' do
     expect(page).to have_content(@customer1.first_name)
     expect(page).to have_content(@customer1.last_name)
   end
+
   describe "total revenue (userstory 17)" do
     it "As a merchant
       When I visit my merchant invoice show page
@@ -57,16 +59,10 @@ RSpec.describe 'Merchant invoice show page' do
       ii6 = InvoiceItem.create!(quantity: 5, unit_price: 5, item_id: item6.id, invoice_id: @invoice1.id)
     
     
-      visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-      expect(page).to have_content("Total Revenue: 175")
-      
-      #calculation
-      
-      #start from invoice
-      #items, invoiceitems
-    end
-    
-    
+ 
+
+    visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
+    expect(page).to have_content("Total Revenue: 175")
   end
   
   describe "story 18" do
@@ -99,26 +95,20 @@ RSpec.describe 'Merchant invoice show page' do
   end
 
 describe "story 16" do 
-  #   As a merchant
-  # When I visit my merchant invoice show page
-  # Then I see all of my items on the invoice including:
-  # Item name
-  # The quantity of the item ordered
-  # The price the Item sold for
-  # The Invoice Item status
-  # And I do not see any information related to Items for other merchants
   it 'shows all items on the invoice' do
     ii5 = InvoiceItem.create!(quantity: 5, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
     ii6 = InvoiceItem.create!(quantity: 10, unit_price: @item2.unit_price, item_id: @item2.id, invoice_id: @invoice1.id)
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
     expect(page).to have_content(@item1.name)
   end
+
   it 'shows items name, quantity of item ordered, price item sold for, invoice item status' do
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
     
     expect(page).to have_content(@ii1.quantity)
     expect(page).to have_content(@ii1.unit_price)
-    expect(page).to have_content(@item1.status)
+    expect(page).to have_content(@ii1.status)
     
   end
   
