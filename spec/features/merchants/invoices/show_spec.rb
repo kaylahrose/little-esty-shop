@@ -47,24 +47,45 @@ RSpec.describe 'Merchant invoice show page' do
   end
   describe "total revenue (userstory 17)" do
     it "As a merchant
-    When I visit my merchant invoice show page
-    Then I see the total revenue that will be generated from all of my items on the invoice" do
+      When I visit my merchant invoice show page
+      Then I see the total revenue that will be generated from all of my items on the invoice" do
 
-    item5 = @merchant1.items.create!(name: 'food1', description: "a", unit_price: 10)
-    item6 = @merchant1.items.create!(name: 'food2', description: "b", unit_price: 5)
+      item5 = @merchant1.items.create!(name: 'food1', description: "a", unit_price: 10)
+      item6 = @merchant1.items.create!(name: 'food2', description: "b", unit_price: 5)
 
-    ii5 = InvoiceItem.create!(quantity: 5, unit_price: 10, item_id: item5.id, invoice_id: @invoice1.id)
-    ii6 = InvoiceItem.create!(quantity: 5, unit_price: 5, item_id: item6.id, invoice_id: @invoice1.id)
+      ii5 = InvoiceItem.create!(quantity: 5, unit_price: 10, item_id: item5.id, invoice_id: @invoice1.id)
+      ii6 = InvoiceItem.create!(quantity: 5, unit_price: 5, item_id: item6.id, invoice_id: @invoice1.id)
 
 
-    visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-    expect(page).to have_content("Total Revenue: 175")
+      visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
+      expect(page).to have_content("Total Revenue: 175")
     
-    #calculation
+      #calculation
     
-    #start from invoice
-    #items, invoiceitems
+      #start from invoice
+      #items, invoiceitems
+    end
+
+
   end
-end
+
+  describe "story 18" do
+#     As a merchant
+# When I visit my merchant invoice show page
+# I see that each invoice item status is a select field
+# And I see that the invoice item's current status is selected
+# When I click this select field,
+# Then I can select a new status for the Item,
+# And next to the select field I see a button to "Update Item Status"
+# When I click this button
+# I am taken back to the merchant invoice show page
+# And I see that my Item's status has now been updated
+  it "Has an invoice item as a select field"
+  it "shows the invoice items current status selecrs"
+  it "when selected i can select a new item"
+  it "next to the field i see a button to update item status"
+  it "this button takes me back to the merchant invoice show page where my item has been updated"
+
+  end
 
 end
