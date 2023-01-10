@@ -20,9 +20,8 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue
-  return 0 if !self.successful?
-  invoice_items.sum do |invoice_item|
-      invoice_item.quantity * invoice_item.unit_price
-    end
+    return 0 if !self.successful?
+    invoice_items
+    .sum("quantity * unit_price")
   end
 end
