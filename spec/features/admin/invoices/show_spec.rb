@@ -26,30 +26,13 @@ RSpec.describe "admin invoice #show" do
 
     @transaction4 = Transaction.create!(credit_card_number: '121987654', credit_card_expiration_date: '02/07', invoice_id: @invoice4.id)
 
-    @ii1 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id, invoice_id: @invoice1.id)
+    @ii1 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id, invoice_id: @invoice1.id, status: 1)
     @ii2 = InvoiceItem.create!(quantity: 5, unit_price: @item2.unit_price, item_id: @item2.id, invoice_id: @invoice2.id)
     @ii3 = InvoiceItem.create!(quantity: 5, unit_price: @item3.unit_price, item_id: @item3.id, invoice_id: @invoice3.id)
-
     @ii4 = InvoiceItem.create!(quantity: 5, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice4.id)
   end
-  
-  describe "story 35" do
-    it "display the total revenue generated from the invoice" do
-      ii5 = InvoiceItem.create!(quantity: 10, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
-      visit "admin/invoices/#{@invoice1.id}"
-      
-      expect(page).to have_content(400)
-    end
-  end
-  
+
   describe 'story 33' do
-    #     As an admin,
-    # When I visit an admin invoice show page
-    # Then I see information related to that invoice including:
-    # - Invoice id
-    # - Invoice status
-    # - Invoice created_at date in the format "Monday, July 18, 2019"
-    # - Customer first and last name
     it 'shows the invoice id' do
       visit "admin/invoices/#{@invoice1.id}"
       
@@ -64,7 +47,7 @@ RSpec.describe "admin invoice #show" do
     it 'shows the invoice created_at date' do
       visit "admin/invoices/#{@invoice1.id}"
   
-      expect(page).to have_content(@invoice1.created_at)
+      expect(page).to have_content(@invoice1.created)
     end
     it 'shows the invoice customer first and last name' do
       visit "admin/invoices/#{@invoice1.id}"
@@ -72,6 +55,25 @@ RSpec.describe "admin invoice #show" do
       expect(page).to have_content(@customer1.first_name)
       expect(page).to have_content(@customer1.last_name)
     end
+  end
 
+  describe 'User Story 34' do
+    it 'shows invoice item info' do
+      visit admin_invoice_path(@invoice1)
+
+      expect(page).to have_content(@item1.name)
+      expect(page).to have_content(@ii1.quantity)
+      expect(page).to have_content(@ii1.unit_price)
+      expect(page).to have_content(@ii1.status)
+    end
+  end
+
+  describe "story 35" do
+    it "display the total revenue generated from the invoice" do
+      ii5 = InvoiceItem.create!(quantity: 10, unit_price: @item4.unit_price, item_id: @item4.id, invoice_id: @invoice1.id)
+      visit "admin/invoices/#{@invoice1.id}"
+      
+      expect(page).to have_content("$#{@invoice1.total_revenue/100}")
+    end
   end
 end

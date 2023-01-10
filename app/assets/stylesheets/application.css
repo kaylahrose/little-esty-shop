@@ -45,3 +45,13 @@
 .inline-button {
   display: inline;
 }
+
+table, th {
+  border: 1px solid;
+}
+
+td {
+  border: 1px solid;
+  font-weight: normal;
+  text-align: center;
+}
