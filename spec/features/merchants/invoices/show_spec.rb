@@ -63,6 +63,7 @@ RSpec.describe 'Merchant invoice show page' do
 
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
     expect(page).to have_content("Total Revenue: 175")
+    end
   end
   
   describe "story 18" do
@@ -78,19 +79,19 @@ RSpec.describe 'Merchant invoice show page' do
     it "Has a select field for item status" do
 
       visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-      expect(page).to have_content("pending")
+      expect(page).to have_content("packaged")
     end
     it "clicking update refreshes the page and updates the item status" do 
       visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
 
+      expect(page).to have_content("packaged")
+      select "packaged"
       expect(page).to have_content("pending")
-      select "complete"
-      expect(page).to have_content("complete")
 
       click_on "Update Item Status"
       save_and_open_page
 
-      expect(page).to have_content("complete")
+      expect(page).to have_content("pending")
     end
   end
 
@@ -105,7 +106,7 @@ describe "story 16" do
 
   it 'shows items name, quantity of item ordered, price item sold for, invoice item status' do
     visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
-    
+    save_and_open_page
     expect(page).to have_content(@ii1.quantity)
     expect(page).to have_content(@ii1.unit_price)
     expect(page).to have_content(@ii1.status)

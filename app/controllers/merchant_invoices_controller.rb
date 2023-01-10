@@ -8,11 +8,11 @@ class MerchantInvoicesController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
   end
 
-  def update
-    merchant = Merchant.find(params[:merchant_id])
-    invoice = Invoice.find(params[:id])
-    item = Item.find(params[:item_id])
-    item.update(status: params[:status])
-    redirect_to "/merchant/#{merchant.id}/invoices/#{invoice.id}"
+   def update
+    binding.pry
+    invoice_item = InvoiceItem.find(params[:ii_id])
+    invoice_item.update(status: params[:status].to_i)
+    binding.pry
+    redirect_to "/merchant/#{params[:merchant_id]}/invoices/#{params[:id]}"
   end
 end
