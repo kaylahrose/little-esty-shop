@@ -7,10 +7,10 @@ RSpec.describe 'admin invoices index' do
       
       visit admin_invoices_path
 
-      expect(page).to have_link(@invoices[0].id, href: admin_invoice_path(@invoices[0]))
-      expect(page).to have_link(@invoices[1].id, href: admin_invoice_path(@invoices[1]))
-      expect(page).to have_link(@invoices[2].id, href: admin_invoice_path(@invoices[2]))
-      expect(page).to have_link(@invoices[3].id, href: admin_invoice_path(@invoices[3]))
+      expect(page).to have_link(@invoices[0].id.to_s, href: admin_invoice_path(@invoices[0]))
+      expect(page).to have_link(@invoices[1].id.to_s, href: admin_invoice_path(@invoices[1]))
+      expect(page).to have_link(@invoices[2].id.to_s, href: admin_invoice_path(@invoices[2]))
+      expect(page).to have_link(@invoices[3].id.to_s, href: admin_invoice_path(@invoices[3]))
     end
   end
 end
