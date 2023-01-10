@@ -59,29 +59,34 @@ RSpec.describe 'Merchant invoice show page' do
 
       visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
       expect(page).to have_content("Total Revenue: 175")
-    
+      
       #calculation
-    
+      
       #start from invoice
       #items, invoiceitems
     end
-
-
+    
+    
   end
-
+  
   describe "story 18" do
-#     As a merchant
-# When I visit my merchant invoice show page
-# I see that each invoice item status is a select field
-# And I see that the invoice item's current status is selected
-# When I click this select field,
-# Then I can select a new status for the Item,
-# And next to the select field I see a button to "Update Item Status"
-# When I click this button
-# I am taken back to the merchant invoice show page
-# And I see that my Item's status has now been updated
-  it "Has an invoice item as a select field"
-  it "shows the invoice items current status selecrs"
+    #     As a merchant
+    # When I visit my merchant invoice show page
+    # I see that each invoice item status is a select field
+    # And I see that the invoice item's current status is selected
+    # When I click this select field,
+    # Then I can select a new status for the Item,
+    # And next to the select field I see a button to "Update Item Status"
+    # When I click this button
+    # I am taken back to the merchant invoice show page
+    # And I see that my Item's status has now been updated
+    it "Has an invoice item as a select field" do
+
+      visit "merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
+
+      expect(page).to have_select_field("item status")
+    end
+    it "shows the invoice items current status selecrs"
   it "when selected i can select a new item"
   it "next to the field i see a button to update item status"
   it "this button takes me back to the merchant invoice show page where my item has been updated"
