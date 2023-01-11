@@ -261,7 +261,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.2)
   factory_bot_rails
-  groupdate
   httparty
   jbuilder (~> 2.5)
   launchy

@@ -1,40 +1,134 @@
-# Little Esty Shop
+<div align="center">
 
-## Background and Description
+  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <h1>Little Esty Shop</h1>
+  
+  <p>
+    
+  </p>
+  
+  
+<!-- Badges -->
+<p>
+  <a href="https://github.com/kaylahrose/little-esty-shop/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/kaylahrose/little-esty-shop" alt="contributors" />
+  </a>
+  <a href="">
+    <img src="https://img.shields.io/github/last-commit/kaylahrose/little-esty-shop" alt="last update" />
+  </a>
+  <a href="https://github.com/kaylahrose/little-esty-shop/network/members">
+    <img src="https://img.shields.io/github/forks/kaylahrose/little-esty-shop" alt="forks" />
+  </a>
+  <a href="https://github.com/kaylahrose/little-esty-shop/stargazers">
+    <img src="https://img.shields.io/github/stars/kaylahrose/little-esty-shop" alt="stars" />
+  </a>
+  <a href="https://github.com/kaylahrose/little-esty-shop/issues/">
+    <img src="https://img.shields.io/github/issues/kaylahrose/little-esty-shop" alt="open issues" />
+  </a>
+</p>
+   
+</div>
 
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
+<br />
 
-## Learning Goals
-- Practice designing a normalized database schema and defining model relationships
-- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
-- Utilize advanced active record techniques to perform complex database queries
-- Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
 
-## Requirements
-- must use Rails 5.2.x
-- must use PostgreSQL
-- all code must be tested via feature tests and model tests, respectively
-- must use GitHub branching, team code reviews via GitHub comments, and github projects to track progress on user stories
-- must include a thorough README to describe the project
-- must deploy completed code to Heroku
-- Continuous Integration / Continuous Deployment is not allowed
-- Any gems added to the project must be approved by an instructor
+- [About the Project](#star2-about-the-project)
+  * [Tech Stack](#space_invader-tech-stack)
+- [Getting Started](#toolbox-getting-started)
+  * [Prerequisites](#bangbang-prerequisites)
+  * [Installation](#gear-installation)
+  * [Running Tests](#test_tube-running-tests)
+  * [Run Locally](#running-run-locally)
+- [Contributing](#wave-contributing)
+- [Contact](#handshake-contact)
 
-## Setup
+  
 
-This project requires Ruby 2.7.4.
+<!-- About the Project -->
+## :star2: About the Project
+<p>"Little Esty Shop" is a group project that requires the team to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.</p>
 
-* Fork this repository
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
+
+
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
+
+<!-- Prerequisites -->
+### :bangbang: Prerequisites
+
+This app requires Ruby version 2.7.4.
+
+<!-- Installation -->
+### :gear: Installation
+
+Fork this repository
 * Clone your fork
-* From the command line, install gems and set up your DB:
-    * `bundle`
-    * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
-* Run your development server with `rails s` to see the app in action.
+* From the command line, install gems and set up your databse:
 
-## Phases
+```bash
+  bundle
+  rails db:{drop,create,migrate,seed}
+```
+   
+<!-- Running Tests -->
+### :test_tube: Running Tests
 
-1. [Database Setup](./doc/db_setup.md)
-1. [User Stories](./doc/user_stories.md)
-1. [Extensions](./doc/extensions.md)
-1. [Evaluation](./doc/evaluation.md)
+To run tests, run the following command
+
+```bash
+  bundle exec rspec spec
+```
+
+<!-- Run Locally -->
+### :running: Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/kaylahrose/little-esty-shop.git
+```
+
+Go to the project directory
+
+```bash
+  cd little-esty-shop
+```
+
+Install dependencies
+
+```bash
+  bundle install
+```
+
+Start the server
+
+```bash
+  rails server
+```
+
+Visit URL <a href="https://www.localhost:3000">Local Host</a>
+
+
+<!-- Contributing -->
+## :wave: Contributing
+
+Contributions are always welcome!
+
+
+<!-- Contact -->
+## :handshake: Contact
+
+Kaylah Rose Mitchell - [/in/kaylahrose](https://www.linkedin.com/in/kaylahrose/) - kaylahrosem@gmail.com
