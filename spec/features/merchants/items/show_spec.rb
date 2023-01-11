@@ -43,7 +43,10 @@ RSpec.describe "Merchant items show page" do
 # - Current Selling Price
     it 'can click on the names of items and take me to the merchant show page' do
       visit merchant_item_index_path(@merchant1)
-      click_on('Chips')
+
+      within("#index") do
+        click_on('Chips')
+      end
 
       expect(page).to have_current_path("/merchant/#{@merchant1.id}/item/#{@item1.id}")
     end
@@ -110,5 +113,6 @@ RSpec.describe "Merchant items show page" do
       expect(page).to have_content("Successfully updated") #comeback and refeactor if time
     end
   end
+
 
 end

@@ -5,12 +5,12 @@ Rails.application.routes.draw do
   resources :admin, only: [:index] 
 
   resources :merchant, only: [:show] do
-    resources :item, only: [:index, :show, :edit, :update], controller: "merchant_items"
-    resources :invoices, only: [:index, :show], controller: "merchant_invoices"
+    resources :item, except: [:destroy], controller: "merchant_items"
+    resources :invoices, only: [:index, :show, :update], controller: "merchant_invoices"
   end
 
   namespace :admin do
-    resources :merchants, only: [:index, :show]
+    resources :merchants, except: [:destroy]
     resources :invoices, only: [:index, :show]
   end
 
@@ -18,5 +18,5 @@ Rails.application.routes.draw do
     resources :dashboards, only: [:index]
   end
 
-  resources :invoices, only: [:show]
+  resources :invoices, only: [:show, :update]
 end

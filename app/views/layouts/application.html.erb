@@ -17,10 +17,12 @@
   </head>
 
   <body>
+    <%= api_helper.repo_name %>
     <div class="title">Little Esty Shop</div>
     <% if controller_path.starts_with?("admin") %>
       <%= render partial: "partials/admin_header" %>
     <% end %>
+    <hr><br>
     <%= yield %>
   </body>
 </html>
