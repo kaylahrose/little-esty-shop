@@ -6,7 +6,6 @@ class Item < ApplicationRecord
   has_many :transactions, through: :invoices
 
   def top_sales_date
-    # require 'pry'; binding.pry
     invoices
       .joins(:transactions)
       .where("transactions.result = ?", 1)

@@ -11,12 +11,6 @@ RSpec.describe Item do
 
   describe 'instance methods' do
     describe '#top_sales_date' do
-      #     As a merchant
-      # When I visit my items index page
-      # Then next to each of the 5 most popular items I see the date with the most sales for each item.
-      # And I see a label “Top selling date for was "
-
-      # NOTE: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
       it 'returns the top sales date for a merchant' do
         mariah = Merchant.create!(name: 'Mariah Ahmed')
         customer = FactoryBot.create(:customer)
@@ -30,7 +24,7 @@ RSpec.describe Item do
           FactoryBot.create(:invoice_item, invoice_id: invoice.id, item_id: item.id, quantity: 1, unit_price: 1)
         end
 
-        expect(item.top_sales_date).to eq((Time.now - 9.days).to_date)
+        expect(item.top_sales_date).to eq((Invoice.last.created_at).to_date)
       end
     end
   end

@@ -165,7 +165,7 @@ RSpec.describe 'merchant items index page' do
 
       mariah.top_5_items.each do |item|
         within('#top-5-items') do
-          expect(page).to have_content("Top selling date for #{item} was #{item.top_sales_date(mariah)}")
+          expect(page).to have_content("Top selling date for #{item.name} was #{item.top_sales_date}")
         end
       end
     end
