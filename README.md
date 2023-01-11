@@ -1,8 +1,8 @@
 # Little Esty Shop
 
-## Background and Description
+## Description
 
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
+"Little Esty Shop" is a group project that requires the team to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
 
 ## Learning Goals
 - Practice designing a normalized database schema and defining model relationships
@@ -11,13 +11,11 @@
 - Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
 
 ## Requirements
-- must use Rails 5.2.x
-- must use PostgreSQL
-- all code must be tested via feature tests and model tests, respectively
-- must use GitHub branching, team code reviews via GitHub comments, and github projects to track progress on user stories
-- must include a thorough README to describe the project
-- must deploy completed code to Heroku
-- Continuous Integration / Continuous Deployment is not allowed
+- Rails 5.2.x
+- PostgreSQL
+- Feature and model testing implemented
+- Detailed Git and GitHub workflow utilzed to track progress on user stories
+- Completed code to Heroku
 - Any gems added to the project must be approved by an instructor
 
 ## Phases
