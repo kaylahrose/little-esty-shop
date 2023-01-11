@@ -89,6 +89,7 @@ RSpec.describe 'Merchant invoice show page' do
       expect(page).to have_content("pending")
 
       click_on "Update Item Status"
+      save_and_open_page
 
       expect(page).to have_content("pending")
     end
