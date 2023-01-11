@@ -13,7 +13,7 @@
 </div>
 
 <h4>Top 5 Merchant's: </h4>
-
 <% @merchants.top5_merchants.each do |merchant| %>
-  <p><%= merchant.name %></p>
+  <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"%>
+  <br>
 <% end %>
