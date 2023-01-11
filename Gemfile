@@ -49,6 +49,11 @@ group :development, :test do
   gem 'table_print'
   gem 'factory_bot_rails'
   gem 'groupdate'
+  gem 'httparty'
+end
+
+group :test do
+  gem 'webmock'
 end
 
 group :development do
