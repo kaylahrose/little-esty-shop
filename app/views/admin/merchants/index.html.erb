@@ -28,11 +28,13 @@
     </div>
   </div>
 
+
   <div id='right_side'>
     <h3>Top Merchants</h3>
     <% @merchants.top5_merchants.each do |merchant| %>
-      <p><%= merchant.name %></p>
+      <%= link_to "#{merchant.name}", "/admin/merchants/#{merchant.id}"%>
       <p>Top day for <%= merchant.name %> was <%= merchant.top_day %>
     <% end %>
   </div>
 </div>
+
