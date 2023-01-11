@@ -1,0 +1,16 @@
+<header class = "github-flex">
+  <div>
+    <h4>GitHub Repository</h4>
+    <%= api_helper.repo_name_test %>
+  </div>
+  <div>
+    <h4>Commits</h4>
+    <% api_helper.contributors_array_test.each do |contributor| %>
+      <%= contributor[0] %> - <%= contributor[1] %><br>
+    <% end %>
+  </div>
+  <div>
+    <h4>Merged Pull Requests</h4>
+    <%= api_helper.num_prs_test %>
+  </div>
+</header>
