@@ -49,6 +49,8 @@ class ApiHelper
     ["WilliamLampke",20]]
   end
 
+  
+
   def num_prs
     @pull_data.map do |pull|
       pull[:merged_at]
