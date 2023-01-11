@@ -4,7 +4,6 @@ class InvoicesController < ApplicationController
   def update
     invoice = Invoice.find(params[:id])
     invoice.update(invoice_params)
-    # require 'pry'; binding.pry
   end
 
   private

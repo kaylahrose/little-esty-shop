@@ -17,7 +17,9 @@
   </head>
 
   <body>
-    <%= api_helper.repo_name %>
+    <% <% if api_helper.contributor_data.is_a? Array %>
+      <%= api_helper.repo_name %>
+    <% end %>
     <div class="title">Little Esty Shop</div>
     <% if controller_path.starts_with?("admin") %>
       <%= render partial: "partials/admin_header" %>
