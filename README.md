@@ -20,18 +20,6 @@
 - Continuous Integration / Continuous Deployment is not allowed
 - Any gems added to the project must be approved by an instructor
 
-## Setup
-
-This project requires Ruby 2.7.4.
-
-* Fork this repository
-* Clone your fork
-* From the command line, install gems and set up your DB:
-    * `bundle`
-    * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
-* Run your development server with `rails s` to see the app in action.
-
 ## Phases
 
 1. [Database Setup](./doc/db_setup.md)
