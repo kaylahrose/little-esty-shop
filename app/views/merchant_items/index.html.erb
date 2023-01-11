@@ -24,6 +24,9 @@
 
 <section id="top-5-items">
   <% @merchant.top_5_items.each do |item| %>
-    <p><%= link_to item.name, merchant_item_path(@merchant, item) %> Total Revenue: <%= item.total_revenue %></p>
+    <p>
+      <%= link_to item.name, merchant_item_path(@merchant, item) %> Total Revenue: <%= item.total_revenue %>
+      Top selling date for <%=item.name%> was <%=item.top_sales_date%>
+    </p>
   <% end %>
 </section>

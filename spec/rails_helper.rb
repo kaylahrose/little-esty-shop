@@ -1,13 +1,19 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-require 'spec_helper'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter "spec"
+end
+require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'support/factory_bot'
+
+# json_response = File.open("fixtures/kr_gh_api_response.json")
+# WebMock.stub_request(:get, 'https://api.github.com/repos/kaylahrose/little-esty-shop').
+#   to_return(status: 200, body: json_response)
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
