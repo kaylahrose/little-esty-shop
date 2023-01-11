@@ -92,7 +92,8 @@ RSpec.describe "admin invoice #show" do
       visit "admin/invoices/#{@invoice1.id}" 
       select 'completed', from: 'invoice_status'
       click_button "Update Invoice Status"
-      expect(@invoice1.status).to eq(2)
+      @invoice1.reload
+      expect(@invoice1.status).to eq('completed')
     end
   end
 end
