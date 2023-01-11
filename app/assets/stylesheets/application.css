@@ -22,6 +22,14 @@
   padding-right: 30px;
 }
 
+.github-flex {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  align-content: center;
+  text-align: center;
+}
+
 .nav-bar {
   display: flex;
   column-gap: 10px;
