@@ -17,22 +17,11 @@
   </head>
 
   <body>
-    <% <% if api_helper.contributor_data.is_a? Array %>
-      <%= api_helper.repo_name %>
-    <% end %>
+    <%= render partial: "partials/github_header" %><br>
     <div class="title">Little Esty Shop</div>
     <% if controller_path.starts_with?("admin") %>
       <%= render partial: "partials/admin_header" %>
     <% end %>
-    <footer>
-      <p>Contributors: 
-        <% if api_helper.contributor_data.is_a? Array %>
-          <% api_helper.contributors_hash[0].keys.each do |contributor| %>
-            <%= contributor%>
-          <% end %>
-        <% end %>
-      </p>
-    </footer>
     <hr><br>
     <%= yield %>
   </body>
