@@ -25,17 +25,11 @@ RSpec.describe 'admin index page' do
       end
     end
 
-    xit 'lists contributors' do
-      json_response = File.open("fixtures/kr_gh_api_response.json")
-      WebMock.stub_request(:get, 'https://api.github.com/repos/kaylahrose/little-esty-shop').
-        to_return(status: 200, body: json_response)
-      
-      visit admin_index_path
+    it 'shows github stats' do
+      visit admin_invoices_path
 
-      within('header.github-flex') do
-        expect(page).to have_link("Merchants", href: admin_merchants_path)
-        expect(page).to have_link("Invoices", href: admin_invoices_path)
-      end
+      expect(page).to have_content("kaylahrose")
+      expect(page).to have_content("dlayton66")
     end
   end
 

@@ -2,13 +2,10 @@ require 'httparty'
 require 'json'
 
 class ApiHelper
-  # remove these before submission?
-  # attr_reader :repo_data, :contributor_data, :pull_data
-
   def initialize
-    # @repo_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop")
-    # @contributor_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop/contributors")
-    # @pull_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop/pulls?state=closed&per_page=100")
+    @repo_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop")
+    @contributor_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop/contributors")
+    @pull_data = get_parsed_data("https://api.github.com/repos/kaylahrose/little-esty-shop/pulls?state=closed&per_page=100")
   end
 
   def get_parsed_data(url)
@@ -48,8 +45,6 @@ class ApiHelper
     ["Kledin85",55],
     ["WilliamLampke",20]]
   end
-
-  
 
   def num_prs
     @pull_data.map do |pull|
