@@ -19,4 +19,6 @@ Rails.application.routes.draw do
   end
 
   resources :invoices, only: [:show, :update]
+
+  resources :discounts, only: [:index, :show]
 end
