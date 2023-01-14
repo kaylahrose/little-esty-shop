@@ -2,3 +2,4 @@
 
 <h5>Percentage: <%= @discount.percentage %></h5>
 <h5>Quantity Threshold: <%= @discount.quantity_threshold %></h5>
+    <%= link_to "Edit", "/merchant/#{@merchant.id}/discounts/#{@discount.id}/edit", method: :get, local: true %>
