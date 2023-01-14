@@ -1,9 +1,12 @@
 <h3>Discounts Index</h3>
 
-<%= @discounts.each do |discount| %>
+<%= link_to "Create a Discount", "/merchant/#{@merchant.id}/discounts/new", method: :get, local: true %>
+
+<% @discounts.each do |discount| %>
     <p>Id: <%= discount.id %></p>
     <p>Percentage: <%= discount.percentage %></p>
     <p>Quantity Threshold:<%= discount.quantity_threshold %></p>
-    <%= link_to "Discount #{discount.id} Show Page", "/discounts/#{discount.id}"%>
+    <%= link_to "Discount #{discount.id} Show Page", "/merchant/#{@merchant.id}/discounts/#{discount.id}"%>
+    
 
 <% end %>

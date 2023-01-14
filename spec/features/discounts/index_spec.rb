@@ -55,4 +55,21 @@ RSpec.describe 'discounts index' do
     
     end
   end
+  describe 'bulk discounts create' do
+    it "Then I see a link to create a new discount
+    When I click this link
+    Then I am taken to a new page where I see a form to add a new bulk discount
+    When I fill in the form with valid data
+    Then I am redirected back to the bulk discount index
+    And I see my new bulk discount listed" do
+
+    visit "/merchant/#{@merchant1.id}/discounts"
+    click_on "Create a Discount"
+    fill_in :percentage, with: ".3"
+    fill_in :quantity_threshold, with: "6"
+    click_on "Submit"
+    expect(page).to have_content(0.3)
+    expect(page).to have_content(6)
+    end
+  end
 end
