@@ -45,7 +45,21 @@ RSpec.describe 'discounts show' do
     visit "/merchant/#{@merchant1.id}/discounts/#{@discount1.id}"
     expect(page).to have_content('Percentage: 0.2')
     expect(page).to have_content('Quantity Threshold: 2')
-    save_and_open_page
+    end
+  end
+  describe 'discount edit' do
+    it "Then I see a link to edit the bulk discount
+    When I click this link
+    Then I am taken to a new page with a form to edit the discount
+    And I see that the discounts current attributes are pre-poluated in the form
+    When I change any/all of the information and click submit
+    Then I am redirected to the bulk discount's show page
+    And I see that the discount's attributes have been updated" do
+    visit "/merchant/#{@merchant1.id}/discounts/#{@discount1.id}"
+    click_on "Edit"
+    fill_in :quantity_threshold, with: "75"
+    click_on "Submit"
+    expect(page).to have_content('Quantity Threshold: 75')
     end
   end
 end
