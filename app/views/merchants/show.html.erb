@@ -16,4 +16,4 @@
   <% end %>
 <% end %>
 <br>
-<%= link_to "Link to all Discounts", "/discounts", method: :get, local: true %>
+<%= link_to "Link to all Discounts", "/merchant/#{@merchant.id}/discounts", method: :get, local: true %>
