@@ -12,7 +12,7 @@ RSpec.describe 'discounts index' do
     @item4 = Item.create!(name: 'fake', description: 'Toe Ring', unit_price: 30, merchant_id: @merchant2.id)
 
     @discount1 = Discount.create!(percentage: 0.2, quantity_threshold: 2, merchant_id: @merchant1.id)
-    @discount1 = Discount.create!(percentage: 0.4, quantity_threshold: 4, merchant_id: @merchant1.id)
+    @discount2 = Discount.create!(percentage: 0.4, quantity_threshold: 4, merchant_id: @merchant1.id)
 
     @customer1 = Customer.create!(first_name: 'Kyle', last_name: 'Ledin')
     @customer2 = Customer.create!(first_name: 'William', last_name: 'Lampke')
@@ -70,6 +70,19 @@ RSpec.describe 'discounts index' do
     click_on "Submit"
     expect(page).to have_content(0.3)
     expect(page).to have_content(6)
+    end
+  end
+  describe 'discounts delete' do
+    it "Then next to each bulk discount I see a link to delete it
+    When I click this link
+    Then I am redirected back to the bulk discounts index page
+    And I no longer see the discount listed" do
+    
+    visit "/merchant/#{@merchant1.id}/discounts"
+    click_on "Delete #{@discount2.id}"
+    save_and_open_page
+    expect(page).to_not have_content("Percentage: 0.4")
+    expect(page).to_not have_content("Quantity Threshold: 4")
     end
   end
 end
