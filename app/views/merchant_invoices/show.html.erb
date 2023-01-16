@@ -3,7 +3,9 @@
 <p>Created at: <%= @invoice.created_at.strftime("%A, %B %e, %Y") %></p>
 <p>Customer: <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %></p>
 
-<h5>Total Revenue: <%= Merchant.total_invoice_revenue(@invoice.id) %><h5>
+<h5>Total Revenue: <%= Merchant.total_invoice_revenue(@invoice.id).to_f %><h5>
+<h5>Discount: <%= @invoice.discounted_revenue(@merchant.id) %><h5>
+<h5>Total With Discount: <%= @invoice.total_minus_discounted_revenue(@merchant.id) %><h5>
 
 <h1>Items on this Invoice:</h1> 
 

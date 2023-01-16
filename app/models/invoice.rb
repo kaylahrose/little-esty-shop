@@ -29,6 +29,16 @@ class Invoice < ApplicationRecord
 
   def self.merchant_ii(merchant_id, invoice_id)
     InvoiceItem.joins(:item)
-               .where("items.merchant_id = #{merchant_id} AND invoice_items.invoice_id = #{invoice_id}")
+    .where("items.merchant_id = #{merchant_id} AND invoice_items.invoice_id = #{invoice_id}")
+  end
+  def discounted_revenue(merchant_id)
+    invoice_items
+    .joins(item: {merchant: :discounts})
+    .where("invoice_items.quantity >= discounts.quantity_threshold AND items.merchant_id = #{merchant_id}")
+    .distinct
+    .sum('invoice_items.quantity * invoice_items.unit_price * discounts.percentage')
+  end
+  def total_minus_discounted_revenue(merchant_id)
+    Merchant.total_invoice_revenue(id).to_f - discounted_revenue(merchant_id)
   end
 end
