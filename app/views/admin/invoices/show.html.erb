@@ -4,7 +4,9 @@
   <%= form.submit "Update Invoice Status" %>
 <% end %></p>
 <p>Created on: <%= @invoice.created %></p>
-<p>Total Revenue: $<%= @invoice.total_revenue.to_f/100 %></p>
+<p>Total Revenue: $<%= @invoice.total_revenue.to_f %></p>
+<p>Discount: $<%= @invoice.discount_amount %></p>
+<p>Total With Discount: $<%= @invoice.total_minus_discount %></p>
 <h3>Customer:</h3>
 <%= @invoice.customer.first_name %> <%= @invoice.customer.last_name %>
 <h3>Items on this Invoice:</h3>

@@ -80,7 +80,6 @@ RSpec.describe 'discounts index' do
     
     visit "/merchant/#{@merchant1.id}/discounts"
     click_on "Delete #{@discount2.id}"
-    save_and_open_page
     expect(page).to_not have_content("Percentage: 0.4")
     expect(page).to_not have_content("Quantity Threshold: 4")
     end

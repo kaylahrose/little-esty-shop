@@ -84,7 +84,7 @@ RSpec.describe Invoice do
 
       expect(@invoice1.total_revenue).to eq(400)
     end
-    describe "#discounted_revenue" do
+    describe "#discounted_revenue AND #total_minus_discounted_revenue" do
       it "totals merchant based on quantity threshold requirements" do
       @merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
       @item1 = Item.create!(name: 'Chips', description: 'Ring', unit_price: 20, merchant_id: @merchant1.id)
@@ -100,6 +100,24 @@ RSpec.describe Invoice do
         expect(invoice5.discounted_revenue(@merchant1.id)).to eq(156.0)
         expect(invoice5.total_minus_discounted_revenue(@merchant1.id)).to eq(104.0)
       end
+    end
+  end
+  describe "#discount_amount AND #total_minus_discount" do
+    it "finds a total including the discount" do
+      @merchant1 = Merchant.create!(name: 'Rays Hand Made Jewlery')
+      @item1 = Item.create!(name: 'Chips', description: 'Ring', unit_price: 20, merchant_id: @merchant1.id)
+      @item2 = @merchant1.items.create!(name: 'darrel', description: 'Bracelet', unit_price: 40)
+      @discount1 = Discount.create!(percentage: 0.2, quantity_threshold: 2, merchant_id: @merchant1.id)
+      @discount2 = Discount.create!(percentage: 0.4, quantity_threshold: 4, merchant_id: @merchant1.id)
+      @customer1 = Customer.create!(first_name: 'Kyle', last_name: 'Ledin')
+      invoice5 = @customer1.invoices.create!(status: 1)
+      ii5 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id,
+        invoice_id: invoice5.id)
+      ii8 = InvoiceItem.create!(quantity: 4, unit_price: @item2.unit_price, item_id: @item2.id,
+        invoice_id: invoice5.id)
+        
+        expect(invoice5.discount_amount).to eq(156.0)
+        expect(invoice5.total_minus_discount).to eq(104.0)
     end
   end
 end

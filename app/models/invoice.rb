@@ -21,7 +21,7 @@ class Invoice < ApplicationRecord
   end
 
   def total_revenue
-    return 0 unless successful?
+    # return 0 unless successful?
 
     invoice_items
       .sum('quantity * unit_price')
@@ -40,5 +40,14 @@ class Invoice < ApplicationRecord
   end
   def total_minus_discounted_revenue(merchant_id)
     Merchant.total_invoice_revenue(id).to_f - discounted_revenue(merchant_id)
+  end
+  def discount_amount
+    invoice_items
+    .joins(item: {merchant: :discounts})
+    .where("invoice_items.quantity >= discounts.quantity_threshold")
+    .sum('invoice_items.quantity * invoice_items.unit_price * (discounts.percentage)')
+  end
+  def total_minus_discount 
+    total_revenue - discount_amount
   end
 end

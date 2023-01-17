@@ -11,6 +11,9 @@ RSpec.describe 'admin invoice #show' do
 
     @item4 = Item.create!(name: 'fake', description: 'Toe Ring', unit_price: 30, merchant_id: @merchant2.id)
 
+    @discount1 = Discount.create!(percentage: 0.2, quantity_threshold: 2, merchant_id: @merchant1.id)
+    @discount2 = Discount.create!(percentage: 0.4, quantity_threshold: 4, merchant_id: @merchant1.id)
+
     @customer1 = Customer.create!(first_name: 'Kyle', last_name: 'Ledin')
     @customer2 = Customer.create!(first_name: 'William', last_name: 'Lampke')
 
@@ -90,6 +93,30 @@ RSpec.describe 'admin invoice #show' do
       click_button 'Update Invoice Status'
       @invoice1.reload
       expect(@invoice1.status).to eq('completed')
+    end
+  end
+  describe 'user story 8' do
+    it "Then I see the total revenue from this invoice (not including discounts)
+    And I see the total discounted revenue from this invoice which includes bulk discounts in the calculation" do
+      visit "admin/invoices/#{@invoice1.id}"
+      expect(page).to have_content('Total Revenue: $100.0')
+      expect(page).to have_content('Discount: $60.0')
+      expect(page).to have_content('Total With Discount: $40.0')
+    end
+  end
+  describe 'us8 additional testing' do
+    it 'additional test' do
+      invoice5 = @customer1.invoices.create!(status: 1)
+      ii5 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id,
+                                invoice_id: invoice5.id)
+
+      ii8 = InvoiceItem.create!(quantity: 4, unit_price: @item2.unit_price, item_id: @item2.id,
+                                invoice_id: invoice5.id)
+      visit "admin/invoices/#{invoice5.id}"
+      expect(page).to have_content('Total Revenue: $260.0')
+      expect(page).to have_content('Discount: $156.0')
+      expect(page).to have_content('Total With Discount: $104.0')
+      
     end
   end
 end

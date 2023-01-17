@@ -23,7 +23,7 @@ RSpec.describe InvoiceItem do
       invoice5 = @customer1.invoices.create!(status: 1)
       ii5 = InvoiceItem.create!(quantity: 5, unit_price: @item1.unit_price, item_id: @item1.id,
         invoice_id: invoice5.id)
-      expect(ii5.my_discounts).to eq([@discount1, @discount2])
+      expect(ii5.my_discounts).to eq([@discount2, @discount1])
     end
   end
 end
