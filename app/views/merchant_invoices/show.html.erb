@@ -17,5 +17,9 @@
     <%= f.select :status, [["pending", 1 ], ["packaged", 0]], selected: invoice_item.status %>
     <%= f.submit "Update Item Status" %>
   <% end%>
+  <p>Applied Discounts: </p>
+  <%invoice_item.my_discounts.each do |discount| %>
+    <p><%= discount.percentage %></p>
+  <% end %>
 <% end %>
 

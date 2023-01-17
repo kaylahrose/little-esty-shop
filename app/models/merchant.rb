@@ -81,4 +81,5 @@ class Merchant < ApplicationRecord
     .day
     .to_date
   end
+ 
 end

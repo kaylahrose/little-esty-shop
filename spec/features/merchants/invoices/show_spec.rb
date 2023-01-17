@@ -145,10 +145,30 @@ RSpec.describe 'Merchant invoice show page' do
 
         visit "/merchant/#{@merchant1.id}/invoices/#{invoice5.id}"
 
-        expect(page).to have_content("Total Revenue: 260.0")
-        expect(page).to have_content("Discount: 156.0")
-        expect(page).to have_content("Total With Discount: 104.0")  
+        expect(page).to have_content('Total Revenue: 260.0')
+        expect(page).to have_content('Discount: 156.0')
+        expect(page).to have_content('Total With Discount: 104.0')
       end
+    end
+  end
+  describe 'link to discount' do
+    it 'Next to each invoice item I see a link to the show page for 
+    the bulk discount that was applied (if any)' do
+    visit "/merchant/#{@merchant1.id}/invoices/#{@invoice1.id}"
+      expect(page).to have_content("0.2")
+      expect(page).to have_content("0.4")
+    end
+  end
+  describe 'additonal test' do
+    it 'additional test' do
+      invoice5 = @customer1.invoices.create!(status: 1)
+      ii5 = InvoiceItem.create!(quantity: 1, unit_price: @item1.unit_price, item_id: @item1.id,
+        invoice_id: invoice5.id)
+      visit "/merchant/#{@merchant1.id}/invoices/#{invoice5.id}"
+      
+      expect(page).to_not have_content("0.2")
+      expect(page).to_not have_content("0.4")
+
     end
   end
 end
