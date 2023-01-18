@@ -84,4 +84,17 @@ RSpec.describe 'discounts index' do
     expect(page).to_not have_content("Quantity Threshold: 4")
     end
   end
+  describe 'api on index' do
+    it "I see a section with a header of 'Upcoming Holidays'
+    In this section the name and date of the next 3 upcoming US holidays are listed" do
+
+    visit "/merchant/#{@merchant1.id}/discounts"
+    expect(page).to have_content("Washington's Birthday 2023-02-20")
+      
+      expect(page).to have_content("Good Friday 2023-04-07")
+      
+      expect(page).to have_content("Memorial Day 2023-05-29")
+
+    end
+  end
 end

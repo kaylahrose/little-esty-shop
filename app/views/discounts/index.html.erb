@@ -1,5 +1,10 @@
 <h3>Discounts Index</h3>
 
+<h5>Upcoming Holdays</h5>
+<% api_helper.holidays.each do |holiday|%>
+    <p><%= holiday %></p>
+<% end%>
+
 <%= link_to "Create a Discount", "/merchant/#{@merchant.id}/discounts/new", method: :get, local: true %>
 
 <% @discounts.each do |discount| %>
